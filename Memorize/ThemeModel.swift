@@ -27,7 +27,7 @@ struct ThemeModel{
     init(){
         themes = Array<Theme>()
 
-        themes.append(Theme(id: 0, name: "Animals", emojis: ["🐮", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐯", "🦁", "🐷", "🐶"], pairs: 5, color: "orange"))
+        themes.append(Theme(id: 0, name: "Animals", emojis: ["🐮", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐯", "🦁", "🐷", "🐶", "🐐", "🦌", "🐕", "🐩", "🦮", "🐕‍🦺", "🐈", "🐈‍⬛", "🐓", "🦃", "🦤", "🦚", "🦜", "🦢", "🦩", "🕊", "🐇", "🦝", "🦨", "🦡", "🦫", "🦦", "🦥", "🐁", "🐀", "🐿", "🦔"], pairs: 10, color: "orange"))
         themes.append(Theme(id: 1, name: "Transportation", emojis: ["✈️", "🚀", "🚲", "🚁", "🚗", "🚕", "🚎", "🛴", "🚝", "🛶"], pairs: 5, color: "red"))
         themes.append(Theme(id: 2, name: "Health", emojis: ["💊", "🌡", "🦠", "🩹", "💉", "🧬", "🩺", "🏨"], pairs: 4, color: "green"))
         themes.append(Theme(id: 3, name: "Fruits", emojis: ["🍎", "🍐", "🥑", "🍒", "🍓", "🥥", "🍍", "🍇", "🥝", "🍑", "🥭", "🫐"], pairs: 6, color: "yellow"))

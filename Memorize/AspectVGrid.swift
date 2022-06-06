@@ -11,26 +11,39 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
     var items: [Item]
     var aspectRatio: CGFloat
     var content: (Item) -> ItemView
+    let minimumSize: CGFloat = 90
     
     init(items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView) {
         self.items = items
         self.aspectRatio = aspectRatio
         self.content = content
     }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack{
                 let width: CGFloat = widthThatFits(itemCount: items.count, in: geometry.size, itemAspectRatio: aspectRatio)
-                LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0){
-                    ForEach(items) { item in
-                        content(item).aspectRatio(aspectRatio, contentMode: .fit)
+                
+                if(width > minimumSize){
+                    displayCards(width)
+                } else {
+                    ScrollView{
+                        displayCards(minimumSize)
                     }
                 }
+                
                 Spacer(minLength: 0)
             }
         }
     }
     
+    private func displayCards(_ width: CGFloat) -> some View{
+        LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0){
+            ForEach(items) { item in
+                content(item).aspectRatio(aspectRatio, contentMode: .fit)
+            }
+        }
+    }
     private func adaptiveGridItem(width: CGFloat) -> GridItem {
         var gridItem = GridItem(.adaptive(minimum: width))
         gridItem.spacing = 0
