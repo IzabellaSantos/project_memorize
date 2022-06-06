@@ -27,12 +27,12 @@ struct ThemeModel{
     init(){
         themes = Array<Theme>()
 
-        themes.append(Theme(id: 0, name: "Animals", emojis: ["🐮", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐯", "🦁", "🐷", "🐶", "🐐", "🦌", "🐕", "🐩", "🦮", "🐕‍🦺", "🐈", "🐈‍⬛", "🐓", "🦃", "🦤", "🦚", "🦜", "🦢", "🦩", "🕊", "🐇", "🦝", "🦨", "🦡", "🦫", "🦦", "🦥", "🐁", "🐀", "🐿", "🦔"], pairs: 10, color: "orange"))
-        themes.append(Theme(id: 1, name: "Transportation", emojis: ["✈️", "🚀", "🚲", "🚁", "🚗", "🚕", "🚎", "🛴", "🚝", "🛶"], pairs: 5, color: "red"))
-        themes.append(Theme(id: 2, name: "Health", emojis: ["💊", "🌡", "🦠", "🩹", "💉", "🧬", "🩺", "🏨"], pairs: 4, color: "green"))
-        themes.append(Theme(id: 3, name: "Fruits", emojis: ["🍎", "🍐", "🥑", "🍒", "🍓", "🥥", "🍍", "🍇", "🥝", "🍑", "🥭", "🫐"], pairs: 6, color: "yellow"))
-        themes.append(Theme(id: 4, name: "Electronics", emojis: ["📱", "💻", "⌨️", "🖥", "🖨", "🖱", "☎️", "💿", "🎥", "📺", "⏰", "🎙", "💡", "📸"], pairs: 7, color: "blue"))
-        themes.append(Theme(id: 5, name: "Tools", emojis: ["🪛", "🔧", "🔨", "⚙️", "🛠", "⛏", "🪚", "🔩"], pairs: 4, color: "pink"))
+        themes.append(Theme(id: 0, name: "Animals", emojis: ["🐮", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐯", "🦁", "🐷", "🐶", "🐐", "🦌", "🐕", "🐩", "🦮", "🐕‍🦺", "🐈", "🐈‍⬛", "🐓", "🦃", "🦤", "🦚", "🦜", "🦢", "🦩", "🕊", "🐇", "🦝", "🦨", "🦡", "🦫", "🦦", "🦥", "🐁", "🐀", "🐿", "🦔"], pairs: 5, color: "orange"))
+        themes.append(Theme(id: 1, name: "Transportation", emojis: ["✈️", "🚀", "🚲", "🚁", "🚗", "🚕", "🚎", "🛴", "🚝", "🛶"], pairs: 3, color: "red"))
+        themes.append(Theme(id: 2, name: "Health", emojis: ["💊", "🌡", "🦠", "🩹", "💉", "🧬", "🩺", "🏨"], pairs: 3, color: "green"))
+        themes.append(Theme(id: 3, name: "Fruits", emojis: ["🍎", "🍐", "🥑", "🍒", "🍓", "🥥", "🍍", "🍇", "🥝", "🍑", "🥭", "🫐"], pairs: 5, color: "yellow"))
+        themes.append(Theme(id: 4, name: "Electronics", emojis: ["📱", "💻", "⌨️", "🖥", "🖨", "🖱", "☎️", "💿", "🎥", "📺", "⏰", "🎙", "💡", "📸"], pairs: 4, color: "blue"))
+        themes.append(Theme(id: 5, name: "Tools", emojis: ["🪛", "🔧", "🔨", "⚙️", "🛠", "⛏", "🪚", "🔩"], pairs: 2, color: "pink"))
     }
     
     struct Theme: Identifiable{
