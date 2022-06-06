@@ -9,7 +9,10 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable	{
     private(set) var cards: Array<Card>
-    private var indexFirstFaceUp: Int?
+    private var indexFirstFaceUp: Int?{
+        get { cards.indices.filter({cards[$0].isFaceUp}).oneAndOnly }
+        set { cards.indices.forEach({cards[$0].isFaceUp = ($0 == newValue)}) }
+    }
     private(set) var score: Int
     
     //mutating - necessary when you try to change any state contained within the struct/enum (Card)
@@ -24,20 +27,16 @@ struct MemoryGame<CardContent> where CardContent: Equatable	{
                     cards[potentialMatchIndex].isMatched = true
                     score += 3
                 }
-                indexFirstFaceUp = nil
+                cards[chosenIndex].isFaceUp = true
                 score -= 1
             }else{
-                for index in cards.indices{
-                    cards[index].isFaceUp = false
-                }
                 indexFirstFaceUp = chosenIndex
             }
-            cards[chosenIndex].isFaceUp.toggle()
         }
     }
     
     init(numberOfPairs: Int, createCardContent: (Int) -> CardContent){
-        cards = Array<Card>()
+        cards = []
         
         for pairIndex in 0..<numberOfPairs {
             let content = createCardContent(pairIndex)
@@ -50,9 +49,19 @@ struct MemoryGame<CardContent> where CardContent: Equatable	{
     }
     
     struct Card: Identifiable{
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
+        var isFaceUp = false
+        var isMatched = false
         var content: CardContent
         var id: Int //can be any type you want
+    }
+}
+
+extension Array{
+    var oneAndOnly: Element?{
+        if count == 1{
+            return first
+        }else{
+            return nil
+        }
     }
 }

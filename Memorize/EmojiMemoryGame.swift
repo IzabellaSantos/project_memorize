@@ -8,14 +8,14 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject{
+    typealias Card = MemoryGame<String>.Card
+    private var themeNames = ["Animals", "Transportation", "Health", "Fruits", "Electronics", "Tools"]
+    private static var themeModel = ThemeModel()
+    private static var themeParameters: ThemeModel.Theme = themeModel.chooseTheme(nameTheme: "Transportation")
     
-    var themeNames = ["Animals", "Transportation", "Health", "Fruits", "Electronics", "Tools"]
-    static var themeModel: ThemeModel = ThemeModel()
-    static var themeParameters: ThemeModel.Theme = themeModel.chooseTheme(nameTheme: "Transportation")
+    @Published private var model = EmojiMemoryGame.createMemoryGame() //every time the model changes, @Published will tell the view
     
-    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame() //every time the model changes, @Published will tell the view
-    
-    var cards: Array<MemoryGame<String>.Card>{
+    var cards: Array<Card>{
         model.cards
     }
     
@@ -23,9 +23,16 @@ class EmojiMemoryGame: ObservableObject{
         model.score
     }
     
+    //create the cards
+    private static func createMemoryGame() -> MemoryGame<String>{
+        MemoryGame<String>(numberOfPairs: themeParameters.pairs) {pairIndex in
+             EmojiMemoryGame.themeParameters.emojis[pairIndex]
+        }
+    }
+    
     //choose a theme randomly and rebuild the cards
     func newGame(){
-        var themeModel: ThemeModel = ThemeModel()
+        var themeModel = ThemeModel()
         
         themeNames.shuffle()
         EmojiMemoryGame.themeParameters = themeModel.chooseTheme(nameTheme: themeNames[0])
@@ -36,15 +43,8 @@ class EmojiMemoryGame: ObservableObject{
         EmojiMemoryGame.themeParameters.name
     }
     
-    //create the cards
-    static func createMemoryGame() -> MemoryGame<String>{
-        MemoryGame<String>(numberOfPairs: themeParameters.pairs) {pairIndex in
-             EmojiMemoryGame.themeParameters.emojis[pairIndex]
-        }
-    }
-    
     //calls the logic behind the faceup and match cards
-    func choose(_ card: MemoryGame<String>.Card){
+    func choose(_ card: Card){
         model.choose(card)
     }
     
