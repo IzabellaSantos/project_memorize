@@ -37,8 +37,8 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
         }
     }
     
-    private func displayCards(_ width: CGFloat) -> some View{
-        LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0){
+    private func displayCards(_ width: CGFloat) -> some View {
+        LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0) {
             ForEach(items) { item in
                 content(item).aspectRatio(aspectRatio, contentMode: .fit)
             }

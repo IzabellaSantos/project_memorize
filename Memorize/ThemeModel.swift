@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct ThemeModel{
+struct ThemeModel {
     private(set) var themes: Array<Theme> //array with all the themes you can have
     
     //ask how to deal with a non-declared theme string
-    mutating func chooseTheme(nameTheme: String) -> Theme{
+    mutating func chooseTheme(nameTheme: String) -> Theme {
         var chosenThemeIndex: Int = 0
         
-        for index in 0..<themes.count{
-            if(themes[index].name.contains(nameTheme)){
+        for index in 0..<themes.count {
+            if(themes[index].name.contains(nameTheme)) {
                 themes[index].emojis.shuffle()
                 chosenThemeIndex = index
             }
@@ -35,7 +35,7 @@ struct ThemeModel{
         themes.append(Theme(id: 5, name: "Tools", emojis: ["🪛", "🔧", "🔨", "⚙️", "🛠", "⛏", "🪚", "🔩"], pairs: 2, color: "pink"))
     }
     
-    struct Theme: Identifiable{
+    struct Theme: Identifiable {
         var id: Int
         var name: String
         var emojis: [String]

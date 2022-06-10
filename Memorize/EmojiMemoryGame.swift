@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class EmojiMemoryGame: ObservableObject{
+class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
     private var themeNames = ["Animals", "Transportation", "Health", "Fruits", "Electronics", "Tools"]
     private static var themeModel = ThemeModel()
@@ -15,23 +15,23 @@ class EmojiMemoryGame: ObservableObject{
     
     @Published private var model = EmojiMemoryGame.createMemoryGame() //every time the model changes, @Published will tell the view
     
-    var cards: Array<Card>{
+    var cards: Array<Card> {
         model.cards
     }
     
-    var score: Int{
+    var score: Int {
         model.score
     }
     
     //create the cards
-    private static func createMemoryGame() -> MemoryGame<String>{
+    private static func createMemoryGame() -> MemoryGame<String> {
         MemoryGame<String>(numberOfPairs: themeParameters.pairs) {pairIndex in
              EmojiMemoryGame.themeParameters.emojis[pairIndex]
         }
     }
     
     //choose a theme randomly and rebuild the cards
-    func newGame(){
+    func newGame() {
         var themeModel = ThemeModel()
         
         themeNames.shuffle()
@@ -39,18 +39,18 @@ class EmojiMemoryGame: ObservableObject{
         model = EmojiMemoryGame.createMemoryGame()
     }
     
-    func returnThemeName() -> String{
+    func returnThemeName() -> String {
         EmojiMemoryGame.themeParameters.name
     }
     
     //calls the logic behind the faceup and match cards
-    func choose(_ card: Card){
+    func choose(_ card: Card) {
         model.choose(card)
     }
     
     //returns the color of the theme for the view
-    func returnColor() -> Color{
-        switch EmojiMemoryGame.themeParameters.color{
+    func returnColor() -> Color {
+        switch EmojiMemoryGame.themeParameters.color {
             case "blue":
                 return Color.blue
             
