@@ -9,9 +9,23 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
-    private var themeNames = ["Animals", "Transportation", "Health", "Fruits", "Electronics", "Tools"]
+    
+    enum theme: String, CaseIterable {
+        case animals = "Animals"
+        case transportation = "Transportation"
+        case health = "Health"
+        case fruits = "Fruits"
+        case electronics = "Electronics"
+        case tools = "Tools"
+        
+        static func randomTheme() -> theme {
+            let random = theme.allCases.randomElement()
+            return random ?? theme.animals
+        }
+    }
+    
     private static var themeModel = ThemeModel()
-    private static var themeParameters: ThemeModel.Theme = themeModel.chooseTheme(nameTheme: "Transportation")
+    private static var themeParameters: ThemeModel.Theme = themeModel.chooseTheme(nameTheme: theme.animals.rawValue)
     
     @Published private var model = EmojiMemoryGame.createMemoryGame() //every time the model changes, @Published will tell the view
     
@@ -25,7 +39,7 @@ class EmojiMemoryGame: ObservableObject {
     
     //create the cards
     private static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairs: themeParameters.pairs) {pairIndex in
+        MemoryGame<String>(numberOfPairs: themeParameters.pairs) { 	pairIndex in
              EmojiMemoryGame.themeParameters.emojis[pairIndex]
         }
     }
@@ -33,9 +47,7 @@ class EmojiMemoryGame: ObservableObject {
     //choose a theme randomly and rebuild the cards
     func newGame() {
         var themeModel = ThemeModel()
-        
-        themeNames.shuffle()
-        EmojiMemoryGame.themeParameters = themeModel.chooseTheme(nameTheme: themeNames[0])
+        EmojiMemoryGame.themeParameters = themeModel.chooseTheme(nameTheme: theme.randomTheme().rawValue)
         model = EmojiMemoryGame.createMemoryGame()
     }
     
