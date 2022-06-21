@@ -10,7 +10,7 @@ import SwiftUI
 class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
     
-    enum theme: String, CaseIterable {
+    enum Theme: String, CaseIterable {
         case animals = "Animals"
         case transportation = "Transportation"
         case health = "Health"
@@ -18,14 +18,14 @@ class EmojiMemoryGame: ObservableObject {
         case electronics = "Electronics"
         case tools = "Tools"
         
-        static func randomTheme() -> theme {
-            let random = theme.allCases.randomElement()
-            return random ?? theme.animals
+        static func randomTheme() -> Theme {
+            let random = Theme.allCases.randomElement()
+            return random ?? Theme.animals
         }
     }
     
     private static var themeModel = ThemeModel()
-    private static var themeParameters: ThemeModel.Theme = themeModel.chooseTheme(nameTheme: theme.animals.rawValue)
+    private static var themeParameters: ThemeModel.Theme = themeModel.chooseTheme(nameTheme: Theme.animals.rawValue)
     
     @Published private var model = EmojiMemoryGame.createMemoryGame() //every time the model changes, @Published will tell the view
     
@@ -47,7 +47,7 @@ class EmojiMemoryGame: ObservableObject {
     //choose a theme randomly and rebuild the cards
     func newGame() {
         var themeModel = ThemeModel()
-        EmojiMemoryGame.themeParameters = themeModel.chooseTheme(nameTheme: theme.randomTheme().rawValue)
+        EmojiMemoryGame.themeParameters = themeModel.chooseTheme(nameTheme: Theme.randomTheme().rawValue)
         model = EmojiMemoryGame.createMemoryGame()
     }
     
