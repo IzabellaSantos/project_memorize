@@ -14,9 +14,17 @@ struct EmojiMemoryGameView: View {
         
         Text("Score: " + String(game.score)).font(.largeTitle).foregroundColor(.blue)
         
-        AspectVGrid(items: game.cards, aspectRatio: 2/3, content: { card in
+        AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
             cardView(for: card)
-        }).foregroundColor(themeColor)
+        }
+        .onAppear {
+            withAnimation {
+                for card in game.cards {
+                    deal(card)
+                }
+            }
+        }
+        .foregroundColor(themeColor)
 
         Spacer()
                         
@@ -27,25 +35,39 @@ struct EmojiMemoryGameView: View {
         }
         .padding(.horizontal)
         .font(.largeTitle)
-
-        .padding(.horizontal)
+    }
+    
+    @State private var dealt = Set<Int>()
+        
+    private func deal(_ card: EmojiMemoryGame.Card) {
+        dealt.insert(card.id)
+    }
+    
+    private func isUndealt(_ card: EmojiMemoryGame.Card) -> Bool {
+        !dealt.contains(card.id)
     }
     
     @ViewBuilder
     private func cardView(for card: EmojiMemoryGame.Card) -> some View {
-        if card.isMatched && !card.isFaceUp {
-            Rectangle().opacity(0)
+        if (isUndealt(card)) || card.isMatched && !card.isFaceUp {
+            Color.clear
         } else {
-            BuildCard(card).padding(4)
+            BuildCard(card)
+            .padding(4)
+            .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
             .onTapGesture {
-                game.choose(card)
+                withAnimation(.easeInOut(duration: 1)) {
+                    game.choose(card)
+                }
             }
         }
     }
     
     var newGame: some View {
         Button {
-            game.newGame()
+            withAnimation {
+                game.newGame()
+            }
         } label: {
             VStack {
                 Image(systemName: "arrowtriangle.right.circle")
@@ -53,6 +75,26 @@ struct EmojiMemoryGameView: View {
                     .font(.caption)
             }
         }
+    }
+    
+    var deckBody: some View {
+        ZStack {
+            ForEach(game.cards.filter(isUndealt)) { card in
+                BuildCard(card)
+            }
+        }
+        
+        .frame(width: CardConstants.undealWidth, height: CardConstants.undealHeight)
+        .foregroundColor(CardConstants.color)
+    }
+    
+    private struct CardConstants {
+        static let color = Color.red
+        static let aspectRatio: CGFloat = 2/3
+        static let dealtDuration: Double = 0.5
+        static let totalDealDuration: Double = 2
+        static let undealHeight: CGFloat = 90
+        static let undealWidth = undealHeight * aspectRatio
     }
 }
  

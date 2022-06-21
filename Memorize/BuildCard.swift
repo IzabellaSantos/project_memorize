@@ -21,7 +21,7 @@ struct BuildCard: View {
                     .padding(5).opacity(0.5)
                 Text(card.content)
                     .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
-                    .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false))
+                    .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) //spin the emoji in matching cards
                     .font(Font.system(size: DrawingConstants.fontSize))
                     .scaleEffect(scale(thatFits: geometry.size))
             }
@@ -38,3 +38,4 @@ struct BuildCard: View {
         static let fontSize: CGFloat = 32
     }
 }
+	
