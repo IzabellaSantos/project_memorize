@@ -11,7 +11,6 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
     var items: [Item]
     var aspectRatio: CGFloat
     var content: (Item) -> ItemView
-    let minimumSize: CGFloat = 90
     
     init(items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView) {
         self.items = items
@@ -23,15 +22,7 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
         GeometryReader { geometry in
             VStack{
                 let width: CGFloat = widthThatFits(itemCount: items.count, in: geometry.size, itemAspectRatio: aspectRatio)
-                
-                if(width > minimumSize){
-                    displayCards(width)
-                } else {
-                    ScrollView{
-                        displayCards(minimumSize)
-                    }
-                }
-                
+                displayCards(width)
                 Spacer(minLength: 0)
             }
         }

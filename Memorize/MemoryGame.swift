@@ -21,7 +21,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable	{
            !cards[chosenIndex].isFaceUp,
            !cards[chosenIndex].isMatched
         {
-            if let potentialMatchIndex = indexFirstFaceUp{
+            if let potentialMatchIndex = indexFirstFaceUp {
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
@@ -35,10 +35,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable	{
         }
     }
     
-    init(numberOfPairs: Int, createCardContent: (Int) -> CardContent) {
+    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         cards = []
         
-        for pairIndex in 0..<numberOfPairs {
+        for pairIndex in 0..<numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
             cards.append(Card(content: content, id: pairIndex*2))
             cards.append(Card(content: content, id: pairIndex*2+1))
